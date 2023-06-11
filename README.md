@@ -66,7 +66,7 @@ const data = { // example data
 };
 
 const App = () => (
-    <JsonDashboard title={"Dashboard Test"} content={data} showTitle />
+    <JsonDashboard title={"Dashboard Test"} data={data} showTitle />
 );
 
 export default App;
@@ -81,7 +81,7 @@ Which will look like this:
 | Prop | Type | Description | Default |
 | ---- | ---- | ----------- | ------- |
 | title | string | Title/Header of the dashboard | "" |
-| content | object | Object containing the data to be displayed | {} |
+| data | object | Object containing the data to be displayed | {} |
 | statusTypes | object | Object describing the backgroundColor, color, and color priority for each status_types | { info: { backgroundColor: "#52A450", color: "white", priority: 0 }, warning: { backgroundColor: "#FF7900", color: "white", priority: 1 }, error: { backgroundColor: "#CB4449", color: "white", priority: 2 } } |
 
 The color priority will be used to determine the background color of the Category that contains the metrics. Example: if a Category has a metric with status_type "error", the background color of the Category will be "#CB4449" (the backgroundColor of the "error" status_type), because it's priority is the highest. Each metric will still display its own color based on its status.
