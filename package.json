@@ -1,0 +1,39 @@
+{
+  "name": "react-json-dashboard",
+  "version": "0.0.1",
+  "description": "A React component to generate a dashboard from a JSON file",
+  "keywords": [
+    "react",
+    "dashboard",
+    "json",
+    "component"],
+  "author": {
+    "name": "Theophile du Laz",
+    "email": "theophile.dulaz@gmail.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Theodlz/react-json-dashboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Theodlz/react-json-dashboard.git/issues"
+  },
+  "homepage": "https://github.com/Theodlz/react-json-dashboard.git#README.md",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "prop-types": "^15.8.1",
+    "react": "^16.14.0 || ^17 || ^18"
+  },
+  "peerDependencies": {
+    "react": "^16.14.0 || ^17 || ^18"
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ]
+}
