@@ -24,12 +24,24 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
+  "scripts": {
+    "build": "rollup -c",
+    "publish-npm": "npm run build && npm publish"
+  },
   "dependencies": {
     "prop-types": "^15.8.1",
     "react": "^16.14.0 || ^17 || ^18"
   },
   "peerDependencies": {
     "react": "^16.14.0 || ^17 || ^18"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "rollup": "^1.32.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-bundle-size": "^1.0.3",
+    "rollup-plugin-copy": "^3.3.0"
   },
   "main": "src/index.js",
   "module": "src/index.js",
