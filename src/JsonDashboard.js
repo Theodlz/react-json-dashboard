@@ -29,8 +29,10 @@ function getCategoryStyle(metrics, statusTypes) {
   };
 }
 
-function displayValue(value) {
+function displayValue(metric, statusTypes) {
+  let value = metric[0];
   let val = value;
+  let type = metric[1];
   if (Array.isArray(value) && value?.length > 0) {
     if (
       value.length === 2 &&
@@ -44,7 +46,94 @@ function displayValue(value) {
     }
   } else if ([null, undefined, []].includes(value)) {
     val = "N/A";
+  } else if (typeof value === "object") {
+    // if it has x and y as keys, we'll create an svg graph
+    if (Array.isArray(value?.x) && Array.isArray(value?.y) && value.x.length === value.y.length) {
+      const max_x = Math.max(...value.x);
+      const max_y = Math.max(...value.y);
+      const min_x = Math.min(...value.x);
+      const min_y = Math.min(...value.y);
+      val = (
+          <svg viewBox="0 0 500 200">
+            {value.x_unit && (
+            <text x="190" y="195" fill="grey" fontSize="1rem">{value.x_unit}</text>
+            )}
+            {value.y_unit && (
+            <text x="0" y="100" fill="grey" fontSize="1rem">{value.y_unit}</text>
+            )}
+            {/* show a grid with units */}
+            <line x1="25" y1="25" x2="25" y2="175" stroke="grey" strokeWidth="1" />
+            <line x1="25" y1="175" x2="475" y2="175" stroke="grey" strokeWidth="1" />
+            <text x="25" y="25" fill="grey" fontSize="1rem" textAnchor="end">{max_y}</text>
+            <text x="25" y="175" fill="grey" fontSize="1rem" textAnchor="end">{min_y}</text>
+            <text x="25" y="195" fill="grey" fontSize="1rem" textAnchor="middle">{min_x}</text>
+            <text x="475" y="195" fill="grey" fontSize="1rem" textAnchor="middle">{max_x}</text>
+            <polyline
+              fill="none"
+              stroke="grey"
+              strokeWidth="2"
+              points={value.x
+                .map((x, i) => `${((x - min_x)/ (max_x - min_x) * 450) + 25},${(200 - (value.y[i] - min_y) / (max_y - min_y) * 150) - 25}`)
+                .join(" ")}
+            />
+            {/* show a marker at each of the points */}
+            {value.x.map((x, i) => (
+              <circle
+                cx={((x - min_x)/ (max_x- min_x) * 450) + 25}
+                cy={(200 - (value.y[i] - min_y) / (max_y - min_y) * 150) - 25}
+                r="4"
+                fill={statusTypes[value?.status[i]]?.backgroundColor || "blue"}
+              />
+            ))}
+            {/* show a label like (x,y) for each of the points */}
+            {value.x.map((x, i) => (
+              <text
+                x={((x - min_x)/ (max_x- min_x) * 450) + 25}
+                y={(200 - (value.y[i] - min_y) / (max_y - min_y) * 150) - 35}
+                fill="grey"
+                fontSize="0.75rem"
+                textAnchor="middle"
+              >
+                ({x},{value.y[i]})
+              </text>
+            ))}
+          </svg>
+      );
+    } else {
+      val = JSON.stringify(value);
+    }
+  } else {
+    val = `${value}`
   }
+  
+  if (typeof val === "string") {
+    val = (
+      <h5
+        style={{
+          margin: 0,
+          padding: 0,
+          backgroundColor: statusTypes[type]
+            ?.backgroundColor
+            ? statusTypes[type]
+                .backgroundColor
+            : null,
+          color: statusTypes[type]?.color
+            ? statusTypes[type].color
+            : "black",
+          paddingLeft: "0.75rem",
+        }}
+      >
+        {val}
+      </h5>
+    )
+  } else {
+    val = (
+      <div style={{ margin: 0, padding: 0, paddingLeft: "0.75rem" }}>
+        {val}
+      </div>
+    )
+  }       
+
   return val;
 }
 
@@ -112,23 +201,7 @@ const JsonDashboard = ({ title, data, statusTypes, showTitle }) => {
                       >
                         {key}
                       </h3>
-                      <h5
-                        style={{
-                          margin: 0,
-                          padding: 0,
-                          backgroundColor: statusTypes[data[category][key][1]]
-                            ?.backgroundColor
-                            ? statusTypes[data[category][key][1]]
-                                .backgroundColor
-                            : null,
-                          color: statusTypes[data[category][key][1]]?.color
-                            ? statusTypes[data[category][key][1]].color
-                            : "black",
-                          paddingLeft: "0.75rem",
-                        }}
-                      >
-                        {displayValue(data[category][key][0])}
-                      </h5>
+                        {displayValue(data[category][key], statusTypes)}
                     </div>
                   ))}
                 </div>

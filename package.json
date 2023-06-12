@@ -1,6 +1,6 @@
 {
   "name": "react-json-dashboard",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "description": "A React component to generate a dashboard from a JSON file",
   "keywords": [
     "react",
