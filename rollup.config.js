@@ -6,27 +6,22 @@ import pkg from './package.json';
 
 const globals = { react: 'React' };
 
-const cjs = {
-  globals,
-  format: 'cjs',
-  exports: 'named',
-  sourcemap: true,
-};
-
-const esm = {
-  globals,
-  format: 'es',
-  sourcemap: true,
-};
-
-const getCJS = override => Object.assign({}, cjs, override);
-const getESM = override => Object.assign({}, esm, override);
-
 export default {
   input: './src/index.js',
   output: [
-    getESM({ file: 'dist/index.es.js' }),
-    getCJS({ file: 'dist/index.cjs.js' }),
+    {
+      file: pkg.main,
+      format: "cjs",
+      sourcemap: true,
+      globals,
+      exports: 'named',
+    },
+    {
+      file: pkg.module,
+      format: "esm",
+      sourcemap: true,
+      globals,
+    },
   ],
   external: [
     ...Object.keys(pkg.dependencies),
