@@ -74,7 +74,7 @@ export default App;
 
 Which will look like this:
 
-![Dashboard Example](https://github
+![Dashboard Example](https://github.com/Theodlz/react-json-dashboard/blob/main/assets/example.png)
 
 ## Props
 
