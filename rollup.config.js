@@ -34,7 +34,9 @@ export default {
   ],
   plugins: [
     bundleSize(),
-    babel(),
+    babel({
+      presets: ["@babel/preset-react"],
+    }),
     copy({
       targets: [{ src: 'src/styles.css', dest: 'dist' }],
     }),

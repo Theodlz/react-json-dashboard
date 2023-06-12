@@ -1,12 +1,13 @@
 {
   "name": "react-json-dashboard",
-  "version": "0.0.1",
+  "version": "0.1.2",
   "description": "A React component to generate a dashboard from a JSON file",
   "keywords": [
     "react",
     "dashboard",
     "json",
-    "component"],
+    "component"
+  ],
   "author": {
     "name": "Theophile du Laz",
     "email": "theophile.dulaz@gmail.com"
@@ -38,6 +39,7 @@
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
+    "@rollup/plugin-babel": "^6.0.3",
     "rollup": "^1.32.0",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-bundle-size": "^1.0.3",
