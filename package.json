@@ -27,7 +27,8 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "publish-npm": "npm run build && npm publish"
+    "publish-npm": "npm run build && npm publish",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "prop-types": "^15.8.1",
