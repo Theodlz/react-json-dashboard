@@ -1,6 +1,6 @@
 {
   "name": "react-json-dashboard",
-  "version": "0.1.6",
+  "version": "0.1.8",
   "description": "A React component to generate a dashboard from a JSON file",
   "keywords": [
     "react",
@@ -27,7 +27,8 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "publish-npm": "npm run build && npm publish"
+    "publish-npm": "npm run build && npm publish",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "prop-types": "^15.8.1",
